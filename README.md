@@ -1,6 +1,46 @@
 # Diffusion-Transformers
 ![alt text](images/dit.png)
 
+## CelebA
+* <img src="_____image.png" alt="alt text" width="300"/>\
+   This dataset contains images of celebs like shown below
+* The model is only trained for 100K steps, should've been trained for 400K which would take more time, so the model is undertrained, at the cost of quality of generated images, but they're not very bad, take a look.
+
+### Generated Images
+```python
+python generate.py --labels female male female female --ema True
+```
+* ![rwed](images/sample_2.png)
+* ![rwef](images/sample_3.png)
+* ![rewrf](images/gen_96800.png)
+* ![erw](images/gen_31200.png)
+* ![fdsaf](images/gen_40000.png)
+* ![esa](images/gen_50000.png)
+* ![wqx](images/gen_64000.png)
+
+### Training Guide
+* ![www](images/loss_vs_steps.png)
+* Running the below file you get a image
+  ```python
+  python torch_src/config.py
+  ```
+  ![d34r3r](images/loss_vs_lr.png)
+  You can see that "log10 learning rates" after `-4.0 (lr=1e-4)` are unstable, which is what i observed keeping `max_lr=3e-4`, the training loss started to shot up, the model forgot everything in the middle of training.
+  ```python
+  python train.py
+  ```
+* ***If you have GPUs and can train this model for 400k steps, please edit the generate.py file to include a download link to your weights, and send a pull request. I’d be happy to incorporate it!***
+
+## MNIST
+* Here MNIST is just used as a test dataset
+
+### Training
+* ```python
+   python torch_src/diffusion_transformer.py
+   ```
+* Also check `jax_mnist_diffussion_transformer.ipynb` for a jax version of this
+![alt text](images/______image-1.png)
+
 ## Latent-Diffusion Models
 * In this paper, we apply DiTs to latent space, although they could be applied to pixel space without modification as well
 

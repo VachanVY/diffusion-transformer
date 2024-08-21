@@ -1,6 +1,24 @@
 data
 *copy*
 checkpoint.*
+ckpt.pt
+train.ipynb
+gen*.png
+
+# some cherry-picked images
+!images/gen_96800.png
+!images/gen_94800.png
+!images/gen_94000.png
+!images/gen_89600.png
+!images/gen_84400.png
+!images/gen_65200.png
+!images/gen_64000.png
+!images/gen_54400.png
+!images/gen_50400.png
+!images/gen_50000.png
+!images/gen_41200.png
+!images/gen_40000.png
+!images/gen_31200.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
