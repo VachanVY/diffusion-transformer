@@ -10,6 +10,16 @@ from torch_src.config import CelebA_config
 
 diff_utils = DiffusionUtils(CelebA_config)
 MODEL_PATH = "checkpoints/celeba/ckpt.pt"
+
+if not os.path.exists(MODEL_PATH):
+    from checkpoints.celeba.download_celeba_ckpt import CKPT_URL
+    raise FileNotFoundError(
+        F"""Model weights not found at {MODEL_PATH}
+        Run `python checkpoints/celeba/download_celeba_ckpt.py` to download the weights
+        Or \033[1mmanually download weights to directory {MODEL_PATH.split('ckpt')[0]}\033[0m from {CKPT_URL}
+        """
+    )
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ctx = torch.autocast(
     DEVICE.type,
