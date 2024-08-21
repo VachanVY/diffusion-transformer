@@ -7,6 +7,13 @@
    * [**Training on MNIST**](https://github.com/VachanVY/diffusion-transformer?tab=readme-ov-file#training-on-mnist)
 * **[Diffusion-Transformers Paper Summary](https://github.com/VachanVY/diffusion-transformer?tab=readme-ov-file#latent-diffusion-models)**
 
+---
+* To clone the repo and install libraries from requirements.txt run the below commands
+   ```python
+   git clone https://github.com/VachanVY/diffusion-transformer.git
+   pip install -r requirements.txt
+   ```
+---
 ## CelebA
 * <img src="images/_____image.png" alt="CelebA Sample" width="400"/>\
    The CelebA dataset consists of celebrity images, such as the example shown above.
