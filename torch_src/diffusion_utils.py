@@ -48,18 +48,18 @@ class DiffusionUtils:
         self, *,
         model:nn.Module, # x:Tensor, # (B, C = 3 or 1, H, W) t:Tensor, # (B,) y:tp.Optional[Tensor]=None, # (B,) key:tp.Optional[Tensor]=None
         labels:Optional[int]=None,
-        num_samples:int=1, # B # idk, doesnt work for more than 1, TODO: fix it
+        # num_samples:int=1, # B # idk, doesnt work for more than 1, TODO: fix it
         use_ddim:bool=False, # False for now until implemented
     ):
-        assert len(labels) == num_samples if labels is not None else True
+        # assert len(labels) == num_samples if labels is not None else True
         sample_func = self.one_step_ddim if use_ddim else self.one_step_ddpm
 
         print(f"Generating images", "" if labels is None else "of " + str(labels))
         labels = torch.tensor(labels, device=self.device) if labels is not None else None
-        x = torch.normal(mean=0.0, std=1.0, size=(num_samples, self.in_channels, self.H, self.W), device=self.device)
+        x = torch.normal(mean=0.0, std=1.0, size=(1, self.in_channels, self.H, self.W), device=self.device)
 
         for i in trange(0, self.num_timesteps-1):
-            t = torch.tensor([self.num_timesteps - i - 1]*num_samples, device=self.device) # (B,)
+            t = torch.tensor([self.num_timesteps - i - 1]*1, device=self.device) # (B,)
             noise = model(x, t, labels)
             x = sample_func(x, noise, t)
         return x
