@@ -414,7 +414,7 @@ if __name__ == "__main__":
     @torch.no_grad()
     def evaluate(model:nn.Module):
         model.eval()
-        gen_image = diff_utils.generate(model=model, num_samples=1, labels=[random.randint(0, config.num_classes-1)]).detach().cpu().squeeze()
+        gen_image = diff_utils.generate(model=model, labels=[random.randint(0, config.num_classes-1)]).detach().cpu().squeeze()
         model.train()
         print("max", gen_image.max(), "min", gen_image.min())
         return gen_image
