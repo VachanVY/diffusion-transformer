@@ -62,7 +62,7 @@
    ```python
    python torch_src/diffusion_transformer.py
    ```
-* Additionally, check out the jax_mnist_diffusion_transformer.ipynb notebook for a JAX version of the model:
+* Additionally, check out the [jax_mnist_diffusion_transformer.ipynb](https://nbviewer.org/github/VachanVY/diffusion-transformer/blob/main/jax_mnist_diffussion_transformer.ipynb) notebook for a JAX version of the model:
 ![alt text](images/______image-1.png)
 
 
