@@ -5,6 +5,7 @@ import torch
 from torch import nn, Tensor
 from torch.nn import functional as F
 
+
 class TimeEmbedding(nn.Module):
     def __init__(self, config:tp.Any, dim:int):
         super().__init__()

@@ -4,8 +4,9 @@ checkpoint.*
 ckpt.pt
 train.ipynb
 gen*.png
+off*
 
-# some cherry-picked images
+# some cherry-picked images DURING TRAINING
 !images/gen_96800.png
 !images/gen_94800.png
 !images/gen_94000.png

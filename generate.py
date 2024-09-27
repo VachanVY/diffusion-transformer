@@ -54,18 +54,21 @@ def main(args):
             plt.title(lbl)
             plt.show(block=False)
             plt.pause(interval=4)
-            plt.savefig(os.path.join(args.save_dir, f"sample_{idx}.png"))
+            plt.savefig(os.path.join(args.save_dir, f"sample_{args.path_idx+idx}.png"))
+            plt.axis("off")
             plt.close()
     print("Done")
 
 
 if __name__ == "__main__":
     import argparse
+    import time
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--labels", type=str, nargs='+')
     parser.add_argument("--save_dir", type=str, default="images/")
     parser.add_argument("--ema", type=bool, default=True)
+    parser.add_argument("--path_idx", type=int, default=time.time())
     args = parser.parse_args()
 
     main(args)
