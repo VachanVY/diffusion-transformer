@@ -32,11 +32,12 @@ class DiffusionUtils:
     
     def one_step_ddpm(self, xt:Tensor, pred_noise:Tensor, t:int):
         alpha_t, alpha_bar_t = self.alpha[t, None, None, None], self.alpha_bar[t, None, None, None]
+        z = torch.normal(mean=0.0, std=1.0, size=xt.shape, device=self.device) if t>0 else 0.0
         xt_minus_1 = (
             (1/torch.sqrt(alpha_t))
             *
             (xt - (1-alpha_t)*pred_noise/torch.sqrt(1-alpha_bar_t)
-            ) + torch.sqrt(self.beta[t])*torch.normal(mean=0.0, std=1.0, size=xt.shape, device=self.device)
+            ) + torch.sqrt(self.beta[t])*z
         )
         return xt_minus_1
     

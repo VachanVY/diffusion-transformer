@@ -108,34 +108,34 @@ class CelebA_config:
     init_from:str = "scratch" # "resume" or "scratch"
 
 
-def loss_vs_lr():
+def loss_vs_lr(config:CelebA_config|MNIST_config):
     from diffusion_transformer import get_diffution_transformer
     from diffusion_utils import DiffusionUtils
 
     model = get_diffution_transformer(
-        config=CelebA_config,
+        config=config,
         compile=True,
-        input_shape=(2, CelebA_config.in_channels, CelebA_config.H, CelebA_config.W)
+        input_shape=(2, config.in_channels, config.H, config.W)
     ).cuda()
-    diff_utils = DiffusionUtils(CelebA_config)
+    diff_utils = DiffusionUtils(config)
 
-    opt = torch.optim.AdamW(model.parameters(), lr=CelebA_config.max_lr, weight_decay=CelebA_config.weight_decay)
+    opt = torch.optim.AdamW(model.parameters(), lr=config.max_lr, weight_decay=config.weight_decay)
     lrs = (10**torch.linspace(-6, -2, 100)).tolist()
     lrs = [lr for lr in lrs for _ in range(2)]
 
     X_batch = torch.normal(
-        mean=-0.88, std=1.98832, size=(4, CelebA_config.in_channels, CelebA_config.H, CelebA_config.W)
+        mean=-0.88, std=1.98832, size=(4, config.in_channels, config.H, config.W)
     ).cuda().clip(-1, 1)
 
     ctx = torch.autocast("cuda", torch.bfloat16)
 
     def get_loss(lr:float):
         opt.zero_grad()
-        timesteps = torch.randint(0, CelebA_config.num_timesteps, (4,)).cuda()
+        timesteps = torch.randint(0, config.num_timesteps, (4,)).cuda()
         noisy_image_timestep, noise_true = diff_utils.noisy_it(X_batch, timesteps)
         for param_group in opt.param_groups:
             param_group["lr"] = lr
-        y = torch.randint(0, CelebA_config.num_classes, size=(4,))
+        y = torch.randint(0, config.num_classes, size=(4,))
         with ctx:
             noise_pred = model(noisy_image_timestep["noisy_images"].cuda(), noisy_image_timestep["timesteps"].cuda(), y.cuda())
             loss = torch.nn.functional.mse_loss(noise_pred, noise_true)
@@ -150,7 +150,7 @@ def loss_vs_lr():
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    losses, lrs = loss_vs_lr()
+    losses, lrs = loss_vs_lr(CelebA_config)
     plt.figure(figsize=(15,5))
     plt.xlabel("Log base10 Learning Rate: Do 10^(x) to get actual learning rate")
     plt.ylabel("Loss")

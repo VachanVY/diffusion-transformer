@@ -50,12 +50,12 @@ def main(args):
                 model=model,
                 labels=[1 if lbl=="male" else 0]
             ).detach().squeeze().add(1.0).div(2.0).permute(1, 2, 0).clip(0, 1).cpu().numpy()
+            plt.axis("off")
             plt.imshow(gen_img)
             plt.title(lbl)
             plt.show(block=False)
             plt.pause(interval=4)
             plt.savefig(os.path.join(args.save_dir, f"sample_{args.path_idx+idx}.png"))
-            plt.axis("off")
             plt.close()
     print("Done")
 
