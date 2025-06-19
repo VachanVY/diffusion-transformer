@@ -108,3 +108,8 @@ the least Gflops and is thus the most compute-efficient
 * The VAE encoder has a downsample factor of 8, given an
 RGB image $x$ with shape $256 \times 256 \times 3$, $z = E(x)$ has shape $32 \times 32 \times 4$
 * $t_{\max} = 1000$ linear variance schedule ranging from $1 \times 10^{-4}$ to $2 \times 10^{-2}$
+
+# Diffusion Models—Theory
+## Variational Autoencoder (VAE) Loss Derivation
+* ![WhatsApp Image 2025-06-19 at 21 29 16_3537a13f](https://github.com/user-attachments/assets/ae1d56df-8390-4915-bdcf-b94ad6bfc380)
+
